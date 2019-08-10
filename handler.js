@@ -1,6 +1,6 @@
 'use strict'
 
-let manager = require('./routeManager')
+let manager = require('./Managers/routeManager')
 
 module.exports = {
   handleRoute(event, done) {
@@ -10,6 +10,7 @@ module.exports = {
           console.log('delete')
           break;
       case 'GET':
+          manager.get(event.queryStringParameters.route, event.queryStringParameters.params)
           //dynamo.scan({ TableName: event.queryStringParameters.TableName }, done);
           console.log('GET')
           break;
