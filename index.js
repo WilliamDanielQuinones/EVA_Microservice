@@ -2,7 +2,7 @@ console.log('Loading function');
 
 let handler = require('./handler')
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
     //console.log('Received event:', JSON.stringify(event, null, 2));
 
     const done = (err, res) => callback(null, {
@@ -13,5 +13,5 @@ exports.handler = (event, context, callback) => {
         },
     });
 
-    handler.handleRoute(event, done)
+    await handler.handleRoute(event, done)
 };
