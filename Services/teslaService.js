@@ -18,7 +18,23 @@ module.exports = {
     }
   },
 
-  revokeAccessToken() {
+  async revokeAccessToken() {
     const revokeTokenUrl = BASE_URL + ENDPOINTS.REVOKE_AUTH_TOKEN.URI
+  },
+
+  async getVehicles(authToken) {
+    const authTokenUrl = BASE_URL + ENDPOINTS.VEHICLE_LIST.URI
+    try{
+      let resp = await axios.post(authTokenUrl, {}, {
+        headers: {'Authorization': "bearer " + authToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  async getVehicleId() {
+
   }
 }
