@@ -12,7 +12,7 @@ module.exports = {
     if(!response) {
       return null
     }
-    return response
+    return JSON.parse(response.Parameter.Value)
   },
 
   async getSsmParameters(keys) {
@@ -24,6 +24,10 @@ module.exports = {
     if(!response) {
       return null
     }
-    return response
+    let params = []
+    for(let param of response.Parameters) {
+      params.push(JSON.parse(param.Value))
+    }
+    return params
   }
 }

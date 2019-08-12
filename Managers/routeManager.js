@@ -1,24 +1,16 @@
 'use strict'
 
-let location = require('../Routes/Get/location')
-let ssm = require('../Services/ssmService')
-let teslaService = require('../Services/teslaService')
-//name in payload: route name
+let Location = require('../Routes/Get/Location')
+let TeslaManager = require('./TeslaManager')
+
 const routesDictionary = {
-  car_location: location.GPSCoordinates
+  car_location: Location.GPSCoordinates //name in payload: route name
 }
 
 module.exports = {
   async get(route, params) {
     if(routesDictionary.hasOwnProperty(route)) {
-      //login
-      //grab ssm params for token
-      let ssmParam = await ssm.getSsmParameters(['teslaAccountSSMParam', 'teslaClientSSMParam'])
-
-      let accessToken = await teslaService.getAccessToken(JSON.parse(ssmParam.Parameters[0].Value), JSON.parse(ssmParam.Parameters[1].Value))
-
-      console.log(accessToken)
-
+      let token = await TeslaManager.getAccessToken()
     }
     let resp = routesDictionary[route](params)
     if(!resp) return null
