@@ -23,9 +23,9 @@ module.exports = {
   },
 
   async getVehicles(authToken) {
-    const authTokenUrl = BASE_URL + ENDPOINTS.VEHICLE_LIST.URI
+    const url = BASE_URL + ENDPOINTS.VEHICLE_LIST.URI
     try{
-      let resp = await axios.post(authTokenUrl, {}, {
+      let resp = await axios.get(url, {
         headers: {'Authorization': "bearer " + authToken.accessToken}
       })
       if (resp) return resp.data.response
@@ -34,7 +34,58 @@ module.exports = {
     }
   },
 
-  async getVehicleId() {
+  async getVehicle(id, authToken) {
+    const url = BASE_URL + convertUri(id, ENDPOINTS.VEHICLE_SUMMARY.URI)
+    try{
+      let resp = await axios.get(url, {
+        headers: {'Authorization': "bearer " + authToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
 
+  async wakeUp(id, authToken) {
+    const url = BASE_URL + convertUri(id, ENDPOINTS.WAKE_UP.URI)
+    try{
+      let resp = await axios.get(url, {
+        headers: {'Authorization': "bearer " + authToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  async getDriveState(id, authToken) {
+    const url = BASE_URL + convertUri(id, ENDPOINTS.VEHICLE_STATE.URI)
+    try{
+      let resp = await axios.get(url, {
+        headers: {'Authorization': "bearer " + authToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  //helper function to translate uris from endpoint file
+  convertUri(id, uri) {
+    if(uri.includes('{vehicle_id}')) {
+      return uri.replace('{vehicle_id}', id)
+    }
+
+    if(uri.includes('{site_id}')) {
+      return uri.replace('{site_id}', id)
+    }
+
+    if(uri.includes('{battery_id}')) {
+      return uri.replace('{battery_id}', id)
+    }
+
+    if(uri.includes('{message_id}')) {
+      return uri.replace('{message_id}', id)
+    }
   }
 }

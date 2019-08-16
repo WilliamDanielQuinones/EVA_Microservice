@@ -4,6 +4,7 @@ let ssm = require('../Services/SsmService')
 let TeslaService = require('../Services/TeslaService')
 let AccessToken = require('../AccessToken/AccessToken')
 let TeslaAccount = require('../TeslaAccount/TeslaAccount')
+let Model3 = require('../Model3/Model3')
 
 module.exports = {
   async getAuthToken() {
@@ -13,18 +14,26 @@ module.exports = {
     return new AccessToken(resp)
   },
 
-  async getCar(displayName, authToken) {
+  async getCarByName(query, authToken) {
     let cars = await getAllCars(authToken)
     let car = cars.find((car) => {
-      if(car.Id == displayName) {
+      if(car.displayName == query) {
         return true
       }
     })
+    return car
+  },
 
-    return car.id
+  async getCarById(query, authToken) {
+    let response = await TeslaService.getVehicle(query, authToken)
+    return new Model3(response)
   },
 
   async getAllCars(authToken) {
-    return await TeslaService.getVehicles(authToken)
+    let response = await TeslaService.getVehicles(authToken)
+    let cars = response.map((vehicle) => {
+      return new Model3(vehicle)
+    })
+    return cars
   }
 }

@@ -27,9 +27,9 @@ module.exports = {
       "URI": "api/1/vehicles/{vehicle_id}",
       "AUTH": true
     },
-    "VEHICLE_DATA_LEGACY": {
+    "VEHICLE_STATE": {
       "TYPE": "GET",
-      "URI": "api/1/vehicles/{vehicle_id}/data",
+      "URI": "api/1/vehicles/{vehicle_id}/data_request/vehicle_state",
       "AUTH": true
     },
     "VEHICLE_DATA": {
