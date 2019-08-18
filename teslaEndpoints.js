@@ -32,6 +32,11 @@ module.exports = {
       "URI": "api/1/vehicles/{vehicle_id}/data_request/vehicle_state",
       "AUTH": true
     },
+    "DRIVE_STATE": {
+      "TYPE": "GET",
+      "URI": "api/1/vehicles/{vehicle_id}/data_request/drive_state",
+      "AUTH": true
+    },
     "VEHICLE_DATA": {
       "TYPE": "GET",
       "URI": "api/1/vehicles/{vehicle_id}/vehicle_data",
