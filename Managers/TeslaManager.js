@@ -15,7 +15,7 @@ module.exports = {
   },
 
   async getCarByName(query, authToken) {
-    let cars = await getAllCars(authToken)
+    let cars = await this.getAllCars(authToken)
     let car = cars.find((car) => {
       if(car.displayName == query) {
         return true

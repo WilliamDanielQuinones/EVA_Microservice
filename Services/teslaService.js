@@ -35,7 +35,7 @@ module.exports = {
   },
 
   async getVehicle(id, authToken) {
-    const url = BASE_URL + convertUri(id, ENDPOINTS.VEHICLE_SUMMARY.URI)
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.VEHICLE_SUMMARY.URI)
     try{
       let resp = await axios.get(url, {
         headers: {'Authorization': "bearer " + authToken.accessToken}
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   async wakeUp(id, authToken) {
-    const url = BASE_URL + convertUri(id, ENDPOINTS.WAKE_UP.URI)
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.WAKE_UP.URI)
     try{
       let resp = await axios.get(url, {
         headers: {'Authorization': "bearer " + authToken.accessToken}
@@ -59,7 +59,7 @@ module.exports = {
   },
 
   async getDriveState(id, authToken) {
-    const url = BASE_URL + convertUri(id, ENDPOINTS.VEHICLE_STATE.URI)
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.DRIVE_STATE.URI)
     try{
       let resp = await axios.get(url, {
         headers: {'Authorization': "bearer " + authToken.accessToken}

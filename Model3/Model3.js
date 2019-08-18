@@ -20,6 +20,9 @@ module.exports = class Model3 {
 
   async getDriveState(authToken) {
     let response = await TeslaService.getDriveState(this.id, authToken)
+    if(!response) {
+      return null
+    }
     return new DriveState(response)
   }
 }
