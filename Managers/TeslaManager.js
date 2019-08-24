@@ -2,38 +2,60 @@
 
 let ssm = require('../Services/SsmService')
 let TeslaService = require('../Services/TeslaService')
-let AccessToken = require('../AccessToken/AccessToken')
+let AccessToken = require('../TeslaAccount/AccessToken')
 let TeslaAccount = require('../TeslaAccount/TeslaAccount')
 let Model3 = require('../Model3/Model3')
 
-module.exports = {
-  async getAuthToken() {
+let self = module.exports = {
+  async getAccessToken() {
     let ssParam = await ssm.getSsmParameter('EVA_Microservice-teslaAccount')
     let account = new TeslaAccount(ssParam)
     let resp = await TeslaService.getAccessToken(account.convertToJson())
+    if(!resp) return null
     return new AccessToken(resp)
   },
 
-  async getCarByName(query, authToken) {
-    let cars = await this.getAllCars(authToken)
+  async getCarByName(name, accessToken) {
+    if(!accessToken) {
+      accessToken = await self.getAccessToken()
+    }
+    let cars = await this.getAllCars(accessToken)
     let car = cars.find((car) => {
-      if(car.displayName == query) {
+      if(car.displayName == name) {
         return true
       }
     })
     return car
   },
 
-  async getCarById(query, authToken) {
-    let response = await TeslaService.getVehicle(query, authToken)
-    return new Model3(response)
+  async getCarById(id, accessToken) {
+    if(!accessToken) {
+      accessToken = await self.getAccessToken()
+    }
+    let response = await TeslaService.getVehicle(id, accessToken)
+    return new Model3(response, accessToken)
   },
 
-  async getAllCars(authToken) {
-    let response = await TeslaService.getVehicles(authToken)
+  async getAllCars(accessToken) {
+    if(!accessToken) {
+      accessToken = await self.getAccessToken()
+    }
+    let response = await TeslaService.getVehicles(accessToken)
     let cars = response.map((vehicle) => {
-      return new Model3(vehicle)
+      return new Model3(vehicle, accessToken)
     })
     return cars
+  },
+
+  async wakeCar(car) {
+    let response = await TeslaService.wakeUp(car.id, car.accessToken)
+    if(!response) return null
+    car.wakeUp()
+  },
+
+  async setCarDriveState(car) {
+    let response = await TeslaService.getDriveState(car.id, car.accessToken)
+    if(!response) return null
+    car.setDriveState(response)
   }
 }

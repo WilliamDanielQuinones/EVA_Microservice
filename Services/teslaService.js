@@ -22,11 +22,11 @@ module.exports = {
     const revokeTokenUrl = BASE_URL + ENDPOINTS.REVOKE_AUTH_TOKEN.URI
   },
 
-  async getVehicles(authToken) {
+  async getVehicles(accessToken) {
     const url = BASE_URL + ENDPOINTS.VEHICLE_LIST.URI
     try{
       let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + authToken.accessToken}
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
       })
       if (resp) return resp.data.response
     } catch (error) {
@@ -34,11 +34,11 @@ module.exports = {
     }
   },
 
-  async getVehicle(id, authToken) {
+  async getVehicle(id, accessToken) {
     const url = BASE_URL + this.convertUri(id, ENDPOINTS.VEHICLE_SUMMARY.URI)
     try{
       let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + authToken.accessToken}
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
       })
       if (resp) return resp.data.response
     } catch (error) {
@@ -46,11 +46,11 @@ module.exports = {
     }
   },
 
-  async wakeUp(id, authToken) {
+  async wakeUp(id, accessToken) {
     const url = BASE_URL + this.convertUri(id, ENDPOINTS.WAKE_UP.URI)
     try{
       let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + authToken.accessToken}
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
       })
       if (resp) return resp.data.response
     } catch (error) {
@@ -58,11 +58,11 @@ module.exports = {
     }
   },
 
-  async getDriveState(id, authToken) {
+  async getDriveState(id, accessToken) {
     const url = BASE_URL + this.convertUri(id, ENDPOINTS.DRIVE_STATE.URI)
     try{
       let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + authToken.accessToken}
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
       })
       if (resp) return resp.data.response
     } catch (error) {

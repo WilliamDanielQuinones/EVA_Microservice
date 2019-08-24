@@ -1,28 +1,30 @@
 'use strict'
 
-const TeslaService = require('../Services/TeslaService')
 const DriveState = require('./DriveState')
 
 module.exports = class Model3 {
-  constructor(vehicle) {
+  constructor(vehicle, accessToken) {
     this.id = vehicle.id
     this.displayName = vehicle.display_name
     this.apiVersion = vehicle.api_version
+    this.accessToken = accessToken
+    this.awake = false
+    this.driveState = null
   }
 
-  async wakeUp(authToken) {
-    let response = await TeslaService.wakeUp(this.id, authToken)
-    if(response == true) {
-      return true
-    }
-    return false
+  async wakeUp() {
+    this.awake = true
   }
 
-  async getDriveState(authToken) {
-    let response = await TeslaService.getDriveState(this.id, authToken)
-    if(!response) {
-      return null
-    }
-    return new DriveState(response)
+  isAwake() {
+    return this.awake
+  }
+
+  async setDriveState(driveState) {
+    this.driveState = new DriveState(driveState)
+  }
+
+  getDriveState() {
+    return this.driveState
   }
 }
