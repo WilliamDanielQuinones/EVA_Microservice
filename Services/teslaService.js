@@ -6,6 +6,7 @@ const axios = require('axios')
 const BASE_URL = 'https://owner-api.teslamotors.com/'
 
 module.exports = {
+  //Authorization
   async getAccessToken(payload) {
     const tokenUrl = BASE_URL + ENDPOINTS.AUTHENTICATE.URI
     payload.grant_type = 'password'
@@ -22,6 +23,7 @@ module.exports = {
     const revokeTokenUrl = BASE_URL + ENDPOINTS.REVOKE_AUTH_TOKEN.URI
   },
 
+
   async getVehicles(accessToken) {
     const url = BASE_URL + ENDPOINTS.VEHICLE_LIST.URI
     try{
@@ -34,20 +36,9 @@ module.exports = {
     }
   },
 
+  // State
   async getVehicle(id, accessToken) {
     const url = BASE_URL + this.convertUri(id, ENDPOINTS.VEHICLE_SUMMARY.URI)
-    try{
-      let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + accessToken.accessToken}
-      })
-      if (resp) return resp.data.response
-    } catch (error) {
-        return null
-    }
-  },
-
-  async wakeUp(id, accessToken) {
-    const url = BASE_URL + this.convertUri(id, ENDPOINTS.WAKE_UP.URI)
     try{
       let resp = await axios.get(url, {
         headers: {'Authorization': "bearer " + accessToken.accessToken}
@@ -82,7 +73,58 @@ module.exports = {
     }
   },
 
-  //helper function to translate uris from endpoint file
+  // Commands
+  async wakeUp(id, accessToken) {
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.WAKE_UP.URI)
+    try{
+      let resp = await axios.post(url, {},{
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  async setTemperature(id, temperature, accessToken) {
+    const url = BASE_URL + this.convertUri(id, `${ENDPOINTS.CHANGE_CLIMATE_TEMPERATURE_SETTING.URI}?
+                                                  driver_temp=${temperature}&passenger_temp=${temperature}`)
+    try{
+      let resp = await axios.post(url, {},{
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  async startHVAC(id, accessToken) {
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.CLIMATE_ON.URI)
+    try{
+      let resp = await axios.post(url, {},{
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  async stopHVAC(id, accessToken) {
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.CLIMATE_OFF.URI)
+    try{
+      let resp = await axios.post(url, {},{
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
+  // Helpers
+  // Convert uris from endpoint file
   convertUri(id, uri) {
     if(uri.includes('{vehicle_id}')) {
       return uri.replace('{vehicle_id}', id)

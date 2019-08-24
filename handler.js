@@ -10,7 +10,8 @@ const GET_Routes = {
 }
 
 const POST_Routes = {
-
+  start_climate: Climate.startClimate,
+  stop_climate: Climate.stopClimate
 }
 
 var self = module.exports = {
