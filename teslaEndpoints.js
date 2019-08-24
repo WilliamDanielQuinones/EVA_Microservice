@@ -77,6 +77,11 @@ module.exports = {
       "URI": "api/1/vehicles/{vehicle_id}/command/flash_lights",
       "AUTH": true
     },
+    "CLIMATE_STATE": {
+      "TYPE": "GET",
+      "URI": "api/1/vehicles/{vehicle_id}/data_request/climate_state",
+      "AUTH": true
+    },
     "CLIMATE_ON": {
       "TYPE": "POST",
       "URI": "api/1/vehicles/{vehicle_id}/command/auto_conditioning_start",

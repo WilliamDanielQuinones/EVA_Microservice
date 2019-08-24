@@ -10,6 +10,7 @@ module.exports = class Model3 {
     this.accessToken = accessToken
     this.awake = false
     this.driveState = null
+    this.climateState = null
   }
 
   async wakeUp() {
@@ -26,5 +27,13 @@ module.exports = class Model3 {
 
   getDriveState() {
     return this.driveState
+  }
+
+  async setClimateState(climateState) {
+    this.climateState = new ClimateState(climateState)
+  }
+
+  getClimateState() {
+    return this.climateState
   }
 }

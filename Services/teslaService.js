@@ -70,6 +70,18 @@ module.exports = {
     }
   },
 
+  async getClimateState(id, accessToken) {
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.CLIMATE_STATE.URI)
+    try{
+      let resp = await axios.get(url, {
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
   //helper function to translate uris from endpoint file
   convertUri(id, uri) {
     if(uri.includes('{vehicle_id}')) {
