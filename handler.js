@@ -13,10 +13,6 @@ const POST_Routes = {
 
 }
 
-const PUT_Routes = {
-
-}
-
 var self = module.exports = {
   async main(event, done) {
 
@@ -53,21 +49,13 @@ var self = module.exports = {
           if(!resp) return done(new Error(`Fail`))
           return done(null, resp)
         }
-      case 'PUT':
-        if(POST_Routes.hasOwnProperty(route)) {
-          let resp = await PUT_Routes[route](model3, event.body)
-          if(!resp) return done(new Error(`Fail`))
-          return done(null, resp)
-        }
       default:
         return done(new Error(`Specified route does not exist`))
     }
   },
 
   _validateHttpMethod(method) {
-    if( method == 'GET'  ||
-        method == 'POST' ||
-        method == 'PUT') {
+    if( method == 'GET'  ||  method == 'POST') {
       return true
     }
     return false

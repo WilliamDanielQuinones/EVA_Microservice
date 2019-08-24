@@ -1,6 +1,6 @@
 # Tesla Api Microservice
 
-Lambda wrapper for the Tesla API. The lambda is set to respond to one endpoint that supports all http methods. Routes are followed based on the http method and the method route defined as query string parameters in the request.
+Lambda wrapper for the Tesla API. The lambda is set to respond to one endpoint that supports POST and GET http methods. Routes are followed based on the http method and the method route defined as query string parameters in the request.
 
 ## Local Development
 If using windows, you can use the following powershell script to automatically sync and build your code in aws lambda. This will only work if you have installed and configured the AWS CLI on your system:
