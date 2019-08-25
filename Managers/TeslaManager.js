@@ -53,13 +53,13 @@ let self = module.exports = {
     car.wakeUp()
   },
 
-  async setCarDriveState(car) {
+  async getCarDriveState(car) {
     let response = await TeslaService.getDriveState(car.id, car.accessToken)
     if(!response) return null
     car.setDriveState(response)
   },
 
-  async setCarClimateState(car) {
+  async getCarClimateState(car) {
     let response = await TeslaService.getClimateState(car.id, car.accessToken)
     if(!response) return null
     car.setClimateState(response)

@@ -1,6 +1,7 @@
 'use strict'
 
 const DriveState = require('./DriveState')
+const ClimateState = require('./ClimateState')
 
 module.exports = class Model3 {
   constructor(vehicle, accessToken) {
