@@ -1,4 +1,4 @@
-//console.log('Loading function');
+'use strict'
 
 let handler = require('./handler')
 

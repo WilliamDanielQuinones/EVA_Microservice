@@ -5,28 +5,26 @@ let TeslaManager = require('../Managers/TeslaManager')
 let self = module.exports = {
   async getTemperature(car) {
     let climateState = car.getClimateState()
-    if(!climateState) { await TeslaManager.getCarClimateState(car) }
-
-    let internalTemp = climateState.insideTemp
-    return {internalTemp: internalTemp}
+    if(!climateState) {
+      await TeslaManager.getCarClimateState(car)
+      climateState = car.getClimateState()
+    }
+    return climateState.insideTemp
   },
 
   async setTemperature(car, temperatureCelsius) {
 
-    let success = await TeslaManager.carTemperatureCommand(car, temperatureCelsius)
-
-    return {success: success}
+    let response = await TeslaManager.carTemperatureCommand(car, temperatureCelsius)
+    return response
   },
 
   async startClimate(car) {
-    let success = await TeslaManager.startHVACCommand(car)
-
-    return {success: success}
+    let response = await TeslaManager.startHVACCommand(car)
+    return response
   },
 
   async stopClimate(car) {
-    let success = await TeslaManager.stopHVACCommand(car)
-
-    return {success: success}
+    let response = await TeslaManager.stopHVACCommand(car)
+    return response
   },
 }

@@ -47,7 +47,7 @@ let self = module.exports = {
     return cars
   },
 
-  async wakeCar(car) {
+  async wakeCarCommand(car) {
     let response = await TeslaService.wakeUp(car.id, car.accessToken)
     if(!response) return null
     car.wakeUp()
