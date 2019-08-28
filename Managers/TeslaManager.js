@@ -21,7 +21,7 @@ let self = module.exports = {
     }
     let cars = await this.getAllCars(accessToken)
     let car = cars.find((car) => {
-      if(car.displayName == name) {
+      if(car.displayName.toLowerCase() == name.toLowerCase()) {
         return true
       }
     })
