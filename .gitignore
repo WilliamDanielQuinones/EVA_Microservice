@@ -1,3 +1,7 @@
 node_modules
 package-lock.json
 archive.zip
+terraform/.terraform
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+Secrets
