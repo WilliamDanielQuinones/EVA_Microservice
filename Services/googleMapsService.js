@@ -5,7 +5,7 @@ const ssm = require('./SsmService')
 
   module.exports = {
     async initClient() {
-      let ssParam = await ssm.getSsmParameter('EVA_Microservice-googleMapsKey')
+      let ssParam = await ssm.getSsmParameter('Tesla_Microservice_Google_api_key')
       return google.createClient({
         key: ssParam.key,
         Promise: Promise,

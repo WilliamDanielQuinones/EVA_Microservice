@@ -8,7 +8,7 @@ let Model3 = require('../Model3/Model3')
 
 let self = module.exports = {
   async getAccessToken() {
-    let ssParam = await ssm.getSsmParameter('EVA_Microservice-teslaAccount')
+    let ssParam = await ssm.getSsmParameter('Tesla_Microservice_Tesla_Account')
     let account = new TeslaAccount(ssParam)
     let resp = await TeslaService.getAccessToken(account.convertToJson())
     if(!resp) return null
