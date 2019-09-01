@@ -93,6 +93,8 @@ resource "aws_lambda_function" "tesla_microservice" {
   timeout = 30
 
   depends_on = ["aws_iam_role_policy_attachment.lambda_permissions_policy"]
+
+  reserved_concurrent_executions = 1
 }
 
 
