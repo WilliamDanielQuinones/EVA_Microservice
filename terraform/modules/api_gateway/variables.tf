@@ -31,21 +31,25 @@ variable "usage_plan_name" {
 variable "api_limit" {
   type = "string"
   description = "Integer limit for API calls in a given period."
+  default = 20
 }
 
 variable "api_limit_period" {
   type = "string"
   description = "Period to track API calls for limit. Accepted Values are: DAY, WEEK, MONTH."
+  default = "DAY"
 }
 
 variable "throttle_burst_limit" {
   type = "string"
   description = "Integer limit for API requests at any given time."
+  default = 1
 }
 
 variable "throttle_rate_limit" {
   type = "string"
   description = "Integer limit for API requests that can occur within one second."
+  default = 1
 }
 
 variable "microservice_function_name" {

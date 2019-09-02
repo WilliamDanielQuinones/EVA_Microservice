@@ -75,7 +75,7 @@ module "ssm_parameter_tesla_credentials" {
   source = "./modules/ssm"
   parameter_name = "Tesla_Microservice_Tesla_Account"
   parameter_type = "SecureString"
-  parameter_value = ""
+  parameter_value = "{\"email\": \"${var.tesla_email}\", \"password\": \"${var.tesla_password}\", \"clientId\": \"${var.tesla_client_id}\", \"clientSecret\": \"${var.tesla_client_secret}\"}"
 
   kms_key_id = "${module.kms.key_id}"
 }
@@ -84,7 +84,7 @@ module "ssm_parameter_google_api_key" {
   source = "./modules/ssm"
   parameter_name = "Tesla_Microservice_Google_api_key"
   parameter_type = "SecureString"
-  parameter_value = ""
+  parameter_value = "{\"key\": \"${var.google_maps_api_key}\"}"
 
   kms_key_id = "${module.kms.key_id}"
 }
