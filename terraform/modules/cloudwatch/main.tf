@@ -1,5 +1,4 @@
 resource "aws_iam_policy" "logging" {
-  count = 0
   name = "logging"
 
   policy = <<EOF

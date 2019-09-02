@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "microservice" {
-  name        = "Tesla_API"
-  description = "API for calling Tesla Microservice"
+  name        = "${var.api_name}"
+  description = "${var.api_description}"
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -13,7 +13,7 @@ resource "aws_api_gateway_method" "proxy" {
   rest_api_id = "${aws_api_gateway_rest_api.microservice.id}"
   resource_id = "${aws_api_gateway_resource.proxy.id}"
 
-  http_method      = "ANY"
+  http_method      = "${var.http_method}"
   authorization    = "NONE"
   api_key_required = true
 
@@ -46,12 +46,12 @@ resource "aws_api_gateway_deployment" "api" {
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.microservice.id}"
-  stage_name  = "tesla_api"
+  stage_name  = "${var.api_stage_name}"
 }
 
 ## API Gateway usage plan and api key
 resource "aws_api_gateway_usage_plan" "api_control" {
-  name = "Spam Prevention"
+  name = "${var.usage_plan_name}"
 
   api_stages {
     api_id = "${aws_api_gateway_rest_api.microservice.id}"
@@ -59,18 +59,18 @@ resource "aws_api_gateway_usage_plan" "api_control" {
   }
 
   quota_settings {
-    limit  = 40
-    period = "DAY"
+    limit  = "${var.api_limit}"
+    period = "${var.api_limit_period}"
   }
 
   throttle_settings {
-    burst_limit = 1
-    rate_limit  = 1
+    burst_limit = "${var.throttle_burst_limit}"
+    rate_limit  = "${var.throttle_rate_limit}"
   }
 }
 
 resource "aws_api_gateway_api_key" "microservice_api_key" {
-  name = "microservice_api_key"
+  name = "${var.api_key_name}"
 }
 
 resource "aws_api_gateway_usage_plan_key" "main" {

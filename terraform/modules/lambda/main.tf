@@ -1,10 +1,10 @@
 resource "aws_lambda_function" "microservice" {
-  filename      = "./../archive.zip"
-  function_name = "Tesla_Microservice"
+  filename      = "${var.build_file_path}"
+  function_name = "${var.lambda_name}"
   role          = "${aws_iam_role.lambda.arn}"
   handler       = "index.handler"
 
-  source_code_hash = "${filebase64sha256("./../archive.zip")}"
+  source_code_hash = "${filebase64sha256("${var.build_file_path}")}"
 
   runtime = "nodejs8.10"
 
@@ -16,7 +16,7 @@ resource "aws_lambda_function" "microservice" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name = "lambda"
+  name = "${var.lambda_iam_role_name}"
 
   assume_role_policy = <<EOF
 {
@@ -36,38 +36,17 @@ EOF
 }
 
 resource "aws_iam_policy" "microservice_permissions" {
-  name = "lambda_ssm_permissions"
+  name = "${var.lambda_iam_policy_name}"
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-      {
-          "Action": [
-              "ssm:DescribeParameters"
-          ],
-          "Resource": "*",
-          "Effect": "Allow"
-      },
-      {
-          "Action": [
-              "ssm:GetParameter"
-          ],
-          "Resource": "*",
-          "Effect": "Allow"
-      },
-      {
-        "Action": [
-            "ssm:GetParameters"
-        ],
-        "Resource": "*",
-        "Effect": "Allow"
-      }
-  ]
-}
-EOF
+  policy = "${var.lambda_iam_policy}"
 }
 
+resource "aws_iam_role_policy_attachment" "microservice_permissions" {
+  role       = "${aws_iam_role.lambda.name}"
+  policy_arn = "${aws_iam_policy.microservice_permissions.arn}"
+}
+
+## Used only if connecting lambda to API Gateway
 resource "aws_lambda_permission" "api" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
@@ -77,9 +56,4 @@ resource "aws_lambda_permission" "api" {
   # The "/*/*" portion grants access from any method on any resource
   # within the API Gateway REST API.
   source_arn = "${var.api_gateway_execution_arn}/*/*"
-}
-
-resource "aws_iam_role_policy_attachment" "microservice_permissions" {
-  role       = "${aws_iam_role.lambda.name}"
-  policy_arn = "${aws_iam_policy.microservice_permissions.arn}"
 }

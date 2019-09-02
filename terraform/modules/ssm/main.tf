@@ -1,15 +1,7 @@
-resource "aws_ssm_parameter" "tesla_credentials" {
-  name = "Tesla_Microservice_Tesla_Account"
-  type = "SecureString"
-  key_id = "${var.kms_key_id}"
+resource "aws_ssm_parameter" "param" {
+  name = "${var.parameter_name}"
+  type = "${var.parameter_type}"
+  key_id = "${var.parameter_type == "SecureString" ? var.kms_key_id : ""}"
 
-  value = ""
-}
-
-resource "aws_ssm_parameter" "google_maps_api_key" {
-  name = "Tesla_Microservice_Google_api_key"
-  type = "SecureString"
-  key_id = "${var.kms_key_id}"
-
-  value = ""
+  value = "${var.parameter_value}"
 }
