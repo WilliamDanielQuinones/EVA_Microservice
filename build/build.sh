@@ -1,5 +1,5 @@
 echo "Creating archive.zip build folder";
-cd ../../;
+cd ../;
 if [ $? -eq 0 ]; then
   echo "...."
 else

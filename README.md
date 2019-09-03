@@ -13,7 +13,7 @@ Must have installed and setup:
 - Terraform
 
 Steps to setup:
-- Run build script (build/windows/build.sh)
+- Run build script (build/build.sh)
 - Navigate to `terraform` folder
 - Create `terraform.tfvars` from `terraform.tfvars.example` and set credentials and Tesla client info
 - Run `terraform init`
@@ -71,7 +71,7 @@ Once your credentials are set, you will need to run `terraform init` while youre
 
 You can check over the top-level `main.tf` for your cloud services configurations and change any values as necessary. The only code dependent values that need to be kept the same are the names of your SSM parameters.
 
-When you're ready to create or update the code or infrastructure on AWS, run `terraform plan` (still in the terraform folder). This will show you all resources and their corresponding config values that are to be created.
+At this point, make sure you have the `archive.zip` folder on your project folder. If you don't run the build script in the build folder. When you're ready to create or update the code or infrastructure on AWS, run `terraform plan` (still in the terraform folder). This will show you all resources and their corresponding config values that are to be created.
 
 After ensuring the plan looks correct, run `terrraform apply`. Terraform will prompt you to validate the changes, you can type 'yes' to confirm.
 
