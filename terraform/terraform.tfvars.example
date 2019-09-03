@@ -1,6 +1,8 @@
+## Required
 tesla_email = ""
 tesla_password = ""
 tesla_client_id = ""
 tesla_client_secret = ""
 
+## Optional
 google_maps_api_key = ""

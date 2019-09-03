@@ -73,7 +73,7 @@ module "api_gateway" {
 
 module "ssm_parameter_tesla_credentials" {
   source = "./modules/ssm"
-  parameter_name = "Tesla_Microservice_Tesla_Account"
+  parameter_name = "Tesla_Microservice_Tesla_Account" ## This shouldn't be changed, the microservice is looking for this parameter name
   parameter_type = "SecureString"
   parameter_value = "{\"email\": \"${var.tesla_email}\", \"password\": \"${var.tesla_password}\", \"clientId\": \"${var.tesla_client_id}\", \"clientSecret\": \"${var.tesla_client_secret}\"}"
 
@@ -82,7 +82,7 @@ module "ssm_parameter_tesla_credentials" {
 
 module "ssm_parameter_google_api_key" {
   source = "./modules/ssm"
-  parameter_name = "Tesla_Microservice_Google_api_key"
+  parameter_name = "Tesla_Microservice_Google_Api_Key" ## This shouldn't be changed, the microservice is looking for this parameter name
   parameter_type = "SecureString"
   parameter_value = "{\"key\": \"${var.google_maps_api_key}\"}"
 

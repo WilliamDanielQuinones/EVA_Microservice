@@ -9,7 +9,11 @@ let self = module.exports = {
 
     let coords = await self.getGPSCoordinates(car)
     let googleMaps = await GoogleMapsServices.initClient()
+    if(!googleMaps) return 'No Google Maps API key set'
+
     let address = await GoogleMapsServices.getAddressFromCoordinates(googleMaps, coords.latitude, coords.longitude)
+    if(!address) return 'Could not retrieve Address from coordinates'
+
     return address
   },
 

@@ -5,7 +5,7 @@ variable "tesla_email" {
 
 variable "tesla_password" {
   type = "string"
-  description = "Password used for Tesla Account. This will be stored locally in the terraform.tfstate file and the terraform.tfvars file. On the cloud, it will be on SSM."
+  description = "Password used for Tesla Account. This will be stored locally in the terraform.tfstate file and the terraform.tfvars file, neither of which will be checked into source control. On the cloud, these values will be on SSM."
 }
 
 variable "tesla_client_id" {
