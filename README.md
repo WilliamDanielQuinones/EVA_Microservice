@@ -7,6 +7,12 @@ Using this microservice to send commands to your car will also avoid having to m
 By using this microservice, only you know where your credentials are and how they are being used.
 
 ### TLDR Initial set up
+
+Must have installed and setup:
+- AWS CLI
+- Terraform
+
+Steps to setup:
 - Run build script (build/windows/build.sh)
 - Navigate to `terraform` folder
 - Create `terraform.tfvars` from `terraform.tfvars.example` and set credentials and Tesla client info
