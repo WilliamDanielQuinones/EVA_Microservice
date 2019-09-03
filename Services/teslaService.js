@@ -2,6 +2,7 @@
 
 const ENDPOINTS = require('../TeslaEndpoints').ENDPOINTS
 const axios = require('axios')
+const JSONbig = require('json-bigint')
 
 const BASE_URL = 'https://owner-api.teslamotors.com/'
 
@@ -28,7 +29,8 @@ module.exports = {
     const url = BASE_URL + ENDPOINTS.VEHICLE_LIST.URI
     try{
       let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + accessToken.accessToken}
+        headers: {'Authorization': "bearer " + accessToken.accessToken},
+        transformResponse: data => JSONbig.parse(data)
       })
       if (resp) return resp.data.response
     } catch (error) {
@@ -41,7 +43,8 @@ module.exports = {
     const url = BASE_URL + this.convertUri(id, ENDPOINTS.VEHICLE_SUMMARY.URI)
     try{
       let resp = await axios.get(url, {
-        headers: {'Authorization': "bearer " + accessToken.accessToken}
+        headers: {'Authorization': "bearer " + accessToken.accessToken},
+        transformResponse: data => JSONbig.parse(data)
       })
       if (resp) return resp.data.response
     } catch (error) {
