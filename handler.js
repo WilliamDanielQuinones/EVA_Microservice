@@ -5,7 +5,7 @@ const Location = require('./Routes/Location')
 const Climate = require('./Routes/Climate')
 
 const GET_Routes = {
-  car_location: Location.getAddress, //name in payload: route path
+  car_location: Location.getAddress, //name in url payload: route path
   car_temp: Climate.getTemperature
 }
 

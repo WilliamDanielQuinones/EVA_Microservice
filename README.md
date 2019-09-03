@@ -6,6 +6,14 @@ Using this microservice to send commands to your car will also avoid having to m
 
 By using this microservice, only you know where your credentials are and how they are being used.
 
+### TLDR Initial set up
+- Run build script (build/windows/build.sh)
+- Navigate to `terraform` folder
+- Create `terraform.tfvars` from `terraform.tfvars.example` and set credentials and Tesla client info
+- Run `terraform init`
+- Run `terraform plan` (optional)
+- Run `terraform apply`
+- Run `terraform output` to get the microservice api url and the api key
 
 ## About the microservice
 
@@ -15,9 +23,6 @@ The lambda is set to respond to one endpoint that supports POST and GET http met
 
 This lambda expects two query string parameters for it to work: route and vehicleName. Valid routes for each HTTP method can be found in the handler.js file of the microservice. Generally, POST requests will be used to send a command to your car, while GET requests are used to retrieve data from your car. Whenever the lambda recieves a request through API Gateway, it will grab your credentials from the SSM Parameter Store and then perform whatever action was specified by the route variable.
 
-The URL will look like: `https://{api_gateway_id}.execute-api.{aws_region}.amazonaws.com/tesla_api/Tesla_Microservice?vehicleName={name}&route={command}`
-
-With the `x-api-key` header property and the value being the API key set by API Gateway.
 
 ### Tesla Credentials
 
@@ -32,6 +37,14 @@ The microservice will create these parameters on the SSM Parameter Store as encr
 
 ## Using the microservice
 
+After setup is complete, you will have a url to use to talk to your car and an api key for security.
+
+The URL will look like: `https://{api_gateway_id}.execute-api.{aws_region}.amazonaws.com/tesla_api/Tesla_Microservice?vehicleName={name}&route={command}`
+
+With the `x-api-key` header property and the value being the API key set by API Gateway.
+
+You can find the possible `route` variable options in handler.js
+
 ### Initial set up
 
 In order to use this microservice, you need to have an AWS account with permissions to create resources in Lambda, SSM, KMS, and API Gateway. You also need to have the AWS CLI installed and properly configured to your account, as well Terraform downloaded and properly set in your system's PATH. Links to setup these services if you don't have them already can be found at the bottom of this README.
@@ -41,17 +54,6 @@ Having AWS CLI and Terraform is optional, but highly recommended to easily setup
 If you have these services ready, setting up the microservice should take 30 seconds.
 
 The first step should be to make sure you generate the build .zip for the lambda by running the build script. If you choose not to use Terraform, you can use this .zip file to import it to AWS manually or using the CLI.
-
-#### TLDR Initial set up
-
-If you are already familiar with the Terraform workflow, you can skip the Terraform section and just follow this checklist in order:
-- Run build script (build/windows/build.sh)
-- Navigate to `terraform` folder
-- Create `terraform.tfvars` from `terraform.tfvars.example` and set credentials and Tesla client info
-- Run `terraform init`
-- Run `terraform plan` (optional)
-- Run `terraform apply`
-- Run `terraform output` to get the microservice api url and the api key
 
 #### Terraform
 
