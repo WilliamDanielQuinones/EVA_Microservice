@@ -21,6 +21,16 @@ Steps to setup:
 - Run `terraform apply`
 - Run `terraform output` to get the microservice api url and the api key
 
+### Current endpoints (route: function)
+
+GET:
+- car_location:  Gets the address your car is currently closest to based on its GPS coordinates.
+- car_temp:      Gets the internal temperature of the car in celsius.
+
+POST:
+- start_climate: Starts HVAC system on your car. It will use whatever temperature was last set.
+- stop_climate:  Stops HVAC system of your car.
+
 ## About the microservice
 
 The lambda is set to respond to one endpoint that supports POST and GET http methods. Routes are followed based on the http method and the method route, defined as a query string parameter in the request. The URL and Api key used to call this microservice is set by API Gateway, which youll be able to see on the AWS console or on the Terraform output after you plan/apply the infrastructure.
@@ -63,7 +73,7 @@ The first step should be to make sure you generate the build .zip for the lambda
 
 #### Terraform
 
-This is the easiest and recommended way to setup the infrastructure for your microservice. If you choose not to use Terraform, you will have to configure everything on AWS manually. , you can skip most of this section, but just make sure you save your credentials to `terraform.tfvars`.
+This is the easiest and recommended way to setup the infrastructure for your microservice. If you choose not to use Terraform, you will have to configure everything on AWS manually, but you can skip most of this section; Just make sure you save your credentials to `terraform.tfvars`.
 
 To setup the microservice, clone the repo and navigate to the `terraform` folder. You will need to copy the `terraform.tfvars.example` file and name it `terraform.tfvars` and then add your credentials and Tesla client info to it. This is what terraform will use to create the proper SSM parameters for your microservice instance. If ever need to update your credentials, you can do so in this file and terraform will update them in SSM for you after a plan/apply.
 
@@ -71,7 +81,7 @@ Once your credentials are set, you will need to run `terraform init` while youre
 
 You can check over the top-level `main.tf` for your cloud services configurations and change any values as necessary. The only code dependent values that need to be kept the same are the names of your SSM parameters.
 
-At this point, make sure you have the `archive.zip` folder on your project folder. If you don't run the build script in the build folder. When you're ready to create or update the code or infrastructure on AWS, run `terraform plan` (still in the terraform folder). This will show you all resources and their corresponding config values that are to be created.
+At this point, make sure you have the `archive.zip` folder on your project folder. If you don't have `archive.zip`, run the build script in the build folder. When you're ready to create or update the code or infrastructure on AWS, run `terraform plan` (still in the terraform folder). This will show you all resources and their corresponding config values that are to be created.
 
 After ensuring the plan looks correct, run `terrraform apply`. Terraform will prompt you to validate the changes, you can type 'yes' to confirm.
 
