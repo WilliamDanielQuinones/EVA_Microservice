@@ -65,6 +65,12 @@ let self = module.exports = {
     car.setClimateState(response)
   },
 
+  async getCarChargeState(car) {
+    let response = await TeslaService.getChargeState(car.id, car.accessToken)
+    if(!response) return null
+    car.setChargeState(response)
+  },
+
   async carTemperatureCommand(car, temperatureCelsius) {
     let response = await TeslaService.setTemperature(car.id, temperatureCelsius, car.accessToken)
     if(!response) return false

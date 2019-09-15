@@ -2,6 +2,7 @@
 
 const DriveState = require('./DriveState')
 const ClimateState = require('./ClimateState')
+const ChargeState = require('./ChargeState')
 
 module.exports = class Model3 {
   constructor(vehicle, accessToken) {
@@ -12,6 +13,7 @@ module.exports = class Model3 {
     this.awake = false
     this.driveState = null
     this.climateState = null
+    this.chargeState = null
   }
 
   wakeUp() {
@@ -36,5 +38,13 @@ module.exports = class Model3 {
 
   getClimateState() {
     return this.climateState
+  }
+
+  setChargeState(chargeState) {
+    this.chargeState = new ChargeState(chargeState)
+  }
+
+  getChargeState() {
+    return this.chargeState
   }
 }

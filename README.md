@@ -24,8 +24,10 @@ Steps to setup:
 ### Current endpoints (route: function)
 
 GET:
-- car_location:  Gets the address your car is currently closest to based on its GPS coordinates.
-- car_temp:      Gets the internal temperature of the car in celsius.
+- location:      Gets the address your car is currently closest to based on its GPS coordinates.
+- temp:          Gets the internal temperature of the car in Fahrenheit.
+- battery_level: Gets current battery level of your car.
+- is_charging:   Tells you if car is currently charging or not.
 
 POST:
 - start_climate: Starts HVAC system on your car. It will use whatever temperature was last set.

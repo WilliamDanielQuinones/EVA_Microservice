@@ -117,6 +117,11 @@ module.exports = {
       "URI": "api/1/vehicles/{vehicle_id}/command/remote_start_drive",
       "AUTH": true
     },
+    "CHARGE_STATE": {
+      "TYPE": "GET",
+      "URI": "api/1/vehicles/{vehicle_id}/data_request/charge_state",
+      "AUTH": true
+    },
     "CHARGE_PORT_DOOR_OPEN": {
       "TYPE": "POST",
       "URI": "api/1/vehicles/{vehicle_id}/command/charge_port_door_open",

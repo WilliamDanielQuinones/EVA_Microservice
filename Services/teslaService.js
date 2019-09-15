@@ -76,6 +76,18 @@ module.exports = {
     }
   },
 
+  async getChargeState(id, accessToken) {
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.CHARGE_STATE.URI)
+    try{
+      let resp = await axios.get(url, {
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
   // Commands
   async wakeUp(id, accessToken) {
     const url = BASE_URL + this.convertUri(id, ENDPOINTS.WAKE_UP.URI)
