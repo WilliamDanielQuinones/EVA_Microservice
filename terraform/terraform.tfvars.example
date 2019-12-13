@@ -5,4 +5,5 @@ tesla_client_id = ""
 tesla_client_secret = ""
 
 ## Optional
+# Required for location function
 google_maps_api_key = ""
