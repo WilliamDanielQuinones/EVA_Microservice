@@ -32,6 +32,7 @@ GET:
 POST:
 - start_climate: Starts HVAC system on your car. It will use whatever temperature was last set.
 - stop_climate:  Stops HVAC system of your car.
+- open_frunk:  Opens frunk.
 
 ## About the microservice
 

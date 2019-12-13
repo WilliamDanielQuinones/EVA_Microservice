@@ -87,5 +87,11 @@ let self = module.exports = {
     let response = await TeslaService.stopHVAC(car.id, car.accessToken)
     if(!response) return false
     return true
+  },
+
+  async openFrunk(car) {
+    let response = await TeslaService.openFrunk(car.id, car.accessToken)
+    if(!response) return false
+    return true
   }
 }

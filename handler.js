@@ -4,6 +4,7 @@ const TeslaManager = require('./Managers/TeslaManager')
 const Location = require('./Routes/Location')
 const Climate = require('./Routes/Climate')
 const Battery = require('./Routes/Battery')
+const Controls = require('./Routes/Controls')
 
 const GET_Routes = {
   location: Location.getAddress, //name in url payload: route path
@@ -14,7 +15,8 @@ const GET_Routes = {
 
 const POST_Routes = {
   start_climate: Climate.startClimate,
-  stop_climate: Climate.stopClimate
+  stop_climate: Climate.stopClimate,
+  open_frunk: Controls.openFrunk
 }
 
 var self = module.exports = {

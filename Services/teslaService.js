@@ -138,6 +138,18 @@ module.exports = {
     }
   },
 
+  async openFrunk(id, accessToken) {
+    const url = BASE_URL + this.convertUri(id, ENDPOINTS.ACTUATE_TRUNK.URI)
+    try{
+      let resp = await axios.post(url, {"which_trunk": "front"},{
+        headers: {'Authorization': "bearer " + accessToken.accessToken}
+      })
+      if (resp) return resp.data.response
+    } catch (error) {
+        return null
+    }
+  },
+
   // Helpers
   // Convert uris from endpoint file
   convertUri(id, uri) {
