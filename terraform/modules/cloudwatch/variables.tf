@@ -8,7 +8,7 @@ variable "microservice_invoke_arn" {
   description = "ARN of microservice to use for cloudwatch iam policy."
 }
 
-variable "iam_role_arn" {
+variable "iam_role_name" {
   type = "string"
-  description = "IAM role arn that needs access to cloudwatch."
+  description = "IAM role name that needs access to cloudwatch."
 }

@@ -44,13 +44,13 @@ EOF
   api_gateway_execution_arn = "${module.api_gateway.execution_arn}"
 }
 
-# module "cloudwatch" {
-#   source = "./modules/cloudwatch"
-#   log_group_name = "/aws/lambda/${module.lambda.function_name}"
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
+  log_group_name = "/aws/lambda/${module.lambda.function_name}"
 
-#   microservice_invoke_arn = "${module.lambda.invoke_arn}"
-#   iam_role_arn = "${module.lambda.iam_role_arn}"
-# }
+  microservice_invoke_arn = "${module.lambda.invoke_arn}"
+  iam_role_name = "${module.lambda.iam_role_name}"
+}
 
 module "api_gateway" {
   source = "./modules/api_gateway"

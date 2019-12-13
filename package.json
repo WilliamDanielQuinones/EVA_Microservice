@@ -1,0 +1,25 @@
+{
+  "name": "eva_microservice",
+  "version": "1.0.0",
+  "description": "This is an API wrapper for the Tesla API. This microservice will be useful to you if you would like to get data from your Tesla or send commands to your Tesla without using the official Tesla application.",
+  "main": "index.js",
+  "dependencies": {
+    "@google/maps": "^1.0.1",
+    "axios": "^0.19.0",
+    "json-bigint": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilliamDanielQuinones/EVA_Microservice.git"
+  },
+  "author": "Daniel Quinones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WilliamDanielQuinones/EVA_Microservice/issues"
+  },
+  "homepage": "https://github.com/WilliamDanielQuinones/EVA_Microservice#readme"
+}

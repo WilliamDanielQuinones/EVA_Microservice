@@ -8,7 +8,7 @@ resource "aws_lambda_function" "microservice" {
 
   runtime = "nodejs8.10"
 
-  timeout = 30
+  timeout = 60
 
   depends_on = ["aws_iam_role_policy_attachment.microservice_permissions"]
 

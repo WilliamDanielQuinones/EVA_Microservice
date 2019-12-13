@@ -8,7 +8,7 @@ resource "aws_iam_policy" "logging" {
       {
           "Effect": "Allow",
           "Action": "logs:CreateLogGroup",
-          "Resource": "arn:aws:logs:us-east-1:${var.microservice_invoke_arn}:*"
+          "Resource": "*"
       },
       {
           "Effect": "Allow",
@@ -16,16 +16,14 @@ resource "aws_iam_policy" "logging" {
               "logs:CreateLogStream",
               "logs:PutLogEvents"
           ],
-          "Resource": [
-              "arn:aws:logs:us-east-1:${var.microservice_invoke_arn}:log-group:${var.log_group_name}:*"
-          ]
+          "Resource": "*"
       }
   ]
 }
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "logging_policy" {
-  role       = "${var.iam_role_arn}"
+resource "aws_iam_role_policy_attachment" "logging" {
+  role       = "${var.iam_role_name}"
   policy_arn = "${aws_iam_policy.logging.arn}"
 }
