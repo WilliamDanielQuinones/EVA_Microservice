@@ -6,7 +6,7 @@ resource "aws_lambda_function" "microservice" {
 
   source_code_hash = "${filebase64sha256("${var.build_file_path}")}"
 
-  runtime = "nodejs8.10"
+  runtime = "nodejs12.x"
 
   timeout = 60
 
